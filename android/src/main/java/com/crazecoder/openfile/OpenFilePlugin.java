@@ -215,7 +215,44 @@ public class OpenFilePlugin implements FlutterPlugin, MethodCallHandler, Activit
     }
 
     private String getFileType(String filePath) {
-        // ... (rest of the getFileType method remains same)
+        if (filePath == null) {
+            return "*/*";
+        }
+        String extension = filePath.substring(filePath.lastIndexOf(".") + 1).toLowerCase();
+        switch (extension) {
+            case "apk":
+                return TYPE_STRING_APK;
+            case "pdf":
+                return "application/pdf";
+            case "doc":
+            case "docx":
+                return "application/msword";
+            case "xls":
+            case "xlsx":
+                return "application/vnd.ms-excel";
+            case "ppt":
+            case "pptx":
+                return "application/vnd.ms-powerpoint";
+            case "txt":
+                return "text/plain";
+            case "jpg":
+            case "jpeg":
+            case "png":
+            case "gif":
+            case "bmp":
+                return "image/*";
+            case "mp3":
+            case "wav":
+            case "ogg":
+                return "audio/*";
+            case "mp4":
+            case "3gp":
+            case "avi":
+            case "mkv":
+                return "video/*";
+            default:
+                return "*/*";
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
